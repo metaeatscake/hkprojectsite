@@ -42,7 +42,7 @@ As described in the [Design Spec](./projectdetails.pdf)
 - [ ] 10-minute Video Presentation of the website. Discuss the purpose of the website, show all pages, mention the tools applied.
 - [ ] 10-minute Video is to be uploaded to YouTube, and linked to the Professor.
 
-## Website Assets
+## Dependencies
 
 - ### [Materialize CSS](https://materializecss.com/)
 
