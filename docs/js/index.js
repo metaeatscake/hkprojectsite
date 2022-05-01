@@ -3,15 +3,22 @@ M.AutoInit();
 
 /**
  * Custom JS Code
+ * 
+ * In This File: Forcing Client-Side to do Server-Side processing.
  */
 
 //A wrapper for all of the code to hide the functions and objects from console
 //Somewhat redundant since the entire JS code can still be opened and edited from *another* console tab.
 document.addEventListener("DOMContentLoaded", function(ev){
 
-/*
-    NAVBAR/Footer LINKS
-*/
+    main();
+
+});
+
+function main(){
+    /*
+        NAVBAR/Footer LINKS
+    */
     let mainSiteLinks = [
         {
             "link":"./index.html",
@@ -104,29 +111,35 @@ document.addEventListener("DOMContentLoaded", function(ev){
         navMob.appendChild(li);
     }
 
-/*
+    /*
     Website Theme
-*/
+    */
 
     //Body theme
     let themeCheckbx = document.querySelector("#site_darkmodetoggle");
     let bodyTag = document.querySelector("body");
 
+    let bodyTheme_light = "black-text grey lighten-2";
+    let bodyTheme_dark = "white-text grey darken-2";
+
+    let useDark = (bodyTag.classList == bodyTheme_dark);
+
     //may be open for abuse, will add a ternary check.
     if(localStorage.hasOwnProperty("site_theme_body")){
-        bodyTag.classList = (localStorage["site_theme_body"] == "dark-bg") ?
-            "dark-bg":"light-bg";
-        themeCheckbx.checked = (bodyTag.classList == "dark-bg");
+        bodyTag.classList = (localStorage["site_theme_body"] == bodyTheme_dark) ?
+            bodyTheme_dark:bodyTheme_light;
+        themeCheckbx.checked = (bodyTag.classList == bodyTheme_dark);
     }
 
     themeCheckbx.addEventListener("click", function(){
-        bodyTag.classList = (themeCheckbx.checked) ? "dark-bg":"light-bg";
+        useDark = themeCheckbx.checked;
+        bodyTag.classList = (useDark) ? bodyTheme_dark:bodyTheme_light;
         localStorage["site_theme_body"] = bodyTag.classList;
     });
 
-/*
+    /*
     Preparations for JSON data handling
-*/
+    */
 
     let path_gundata = "./js/gundata.json";
     let path_gunmapdesc = "./js/gunmapdesc.json";
@@ -152,6 +165,12 @@ document.addEventListener("DOMContentLoaded", function(ev){
         xhp.send(null);
     }
 
+    function findRowByField(json_arr, target_key, value){
+        for(const x of json_arr)
+            if(x[target_key] == value)
+                return x;
+    }
+
     //Usage:
     /*
         loadJSON(path_var, function(response){
@@ -161,11 +180,54 @@ document.addEventListener("DOMContentLoaded", function(ev){
         });
     */
 
-/*
-    List Gun Data
-*/
+    /*
+    GunList related JS
+    */
 
-    
+    let gunMain = document.getElementById("main_guns");
+    if(gunMain){
 
-//Close the DOMContentLoaded wrapper
-});
+        let cardList = Array.from( document.querySelectorAll(".card"));
+        let themes = {
+            "dark":"card grey darken-4",
+            "light":"card grey lighten-4"
+        };
+
+        function setCardTheme(useDarkBool){
+
+            cardList.forEach(function(node, _idx){
+                
+                let chosenTheme = (useDarkBool) ?
+                    themes.dark : themes.light;
+                
+                node.classList = chosenTheme;
+            });
+
+            localStorage["site_theme_cards"] = (useDarkBool) ? 
+                themes.dark : themes.light;
+        }
+
+        if(localStorage.hasOwnProperty("site_theme_cards")){
+            setCardTheme(themeCheckbx.checked);
+        }
+
+        themeCheckbx.addEventListener("click", function(){
+            setCardTheme(themeCheckbx.checked);
+        });
+
+        loadJSON("gundata", function(response){
+            let JSONdata = JSON.parse(response);
+
+            cardList.forEach(function(node, _idx){
+                node.querySelector(".stat-trigger").addEventListener("click", function(_ev){
+                    console.log("Card name: "+node.outerText.split("\n")[0]);
+                    console.log("Object: ");
+                    console.log(findRowByField(JSONdata, "name", node.outerText.split("\n")[0]));
+                });
+            });
+        });
+
+    }
+}
+
+//function initAnchors(_dataSet, _targetElement, _classList = null, _hasDivider = null)
