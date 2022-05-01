@@ -1,3 +1,35 @@
 *{
     margin:0;
 }
+
+.mgn-2em{
+    margin: 2em;
+}
+
+.subtitle{
+    border-bottom: 1px solid gray;
+    font-size: 1.3rem;
+    text-align: center;
+    color: gray;
+    margin: 0.2rem;
+    //border: 1px solid red;
+}
+
+.title{
+    h1{
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    margin: 0.1rem;
+
+    //border: 1px solid green;
+}
+
+.showcase{
+    img{
+        width: 100%;
+    }
+
+    margin: 1rem;
+}
