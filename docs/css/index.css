@@ -1,4 +1,57 @@
 * {
   margin: 0;
 }
+
+.mgn-2em {
+  margin: 2em;
+}
+
+.dark-bg {
+  color: white;
+  background-color: #454545;
+}
+
+.light-bg {
+  color: black;
+  background-color: white;
+}
+
+.clr-white {
+  color: white;
+}
+
+.subtitle {
+  border-bottom: 1px solid gray;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  color: #8a8a8a;
+  margin: 0.2rem;
+}
+
+.title {
+  margin: 0.1rem;
+}
+
+.title h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.showcase {
+  margin: 1rem;
+}
+
+.showcase img {
+  width: 100%;
+}
+
+.embed-yt {
+  margin: 1rem;
+}
+
+.embed-yt iframe {
+  width: 100%;
+  min-height: 600px;
+}
 /*# sourceMappingURL=index.css.map */

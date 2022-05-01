@@ -1,0 +1,95 @@
+--featured--
+
+[HK416 .22 LR Rifle]
+category:AR
+caliber:.22 LR
+width:2.6 in
+height:10.8 in
+barrel_length:16.1 in
+#end
+
+[UMP9]
+category:SMG
+caliber:.9mm x 19 Parabellum 
+length:17.71 in
+width:2.40 in.
+height:12 in
+barrel_length:7.87 in
+#end
+
+[UMP45]
+category:SMG
+caliber:.45 ACP
+length:17.71 in
+width:2.40 in.
+height:12 in
+barrel_length:7.87 in
+#end
+
+[G11]
+category:AR
+caliber:4.73×33mm
+length:30 in
+height:11.61 in
+barrel_length:21 in
+#end
+
+--end--
+
+--Rifles--
+
+[SL8]
+caliber:.223 Remington
+length:38.6 in
+height:9.84 in
+barrel_length:20.8 in
+#end
+
+[USC]
+caliber:.45 ACP
+length:35.43 in.
+width:1.97 in.
+height:9.75 in.
+barrel_length:16 in.
+#end
+
+--end--
+
+--Pistols--
+
+[MP5 .22 LR Pistol]
+category:SMG
+caliber:.22 LR	
+length:18.2 in	
+width:2.3 in 
+height:11 in	
+barrel_length:8.5 in
+#end
+
+[SP5L]
+category:SMG
+caliber:9 mm	
+length:25.5 in.		
+height:8.66 in	
+barrel_length:16.57 in.
+#end
+
+[VP9 Match]
+category:HG
+caliber:9 mm	
+length:8.78 in	
+height:6.50 in	
+barrel_length:5.51 in.	
+sight_radius:7.68 in.
+#end
+
+[P30SK]
+category:HG
+caliber:9 mm x 19	
+length:6.42 in.	
+height:4.57 in.	
+width:1.37 in.	
+barrel_length:3.27 in.
+#end
+
+--end--

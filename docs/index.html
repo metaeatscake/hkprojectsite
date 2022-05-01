@@ -23,70 +23,122 @@
     
   </head>
   
-  <body>
+  <body class="light-bg">
     
     <header>
 
       <div class="navbar-fixed">
         <nav>
-          <div class="nav-wrapper">
-            <a href="#" class="brand-logo"> <i class="fa-solid fa-gun"></i> HK</a>
+          <div class="nav-wrapper red darken-4">
+            <div class="logo_adjust">
+              <a href="#" class="brand-logo"> 
+                <div class="container">
+                  <div class="row">
+                    <div class="col s6"><i class="fa-solid fa-gun"></i></div>
+                    <div class="col s6">
+                      <p>HK</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
             <a href="#" data-target="mobile-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-              <li><a href="">Item 1</a></li>
-              <li><a href="">Item 2</a></li>
-              <li><a href="">Item 3</a></li>
-              <li><a href="">Item 4</a></li>
-            </ul>
+            <ul class="right hide-on-med-and-down" id="main-navlist"></ul>
           </div>
         </nav>
       </div>
     
-      <ul class="sidenav" id="mobile-sidenav">
-        <li><a href="">Item 1</a></li>
-        <li class="divider"></li>
-        <li><a href="">Item 2</a></li>
-        <li><a href="">Item 3</a></li>
-        <li><a href="">Item 4</a></li>
-      </ul>
+      <ul class="sidenav" id="mobile-sidenav"></ul>
     </header>
 
-    <main>
-      There's nothing here yet. We're still figuring it out.
+    <main class="mgn-2em">
+      <div class="container">
 
-      <div class="divider"></div>
-      <div class="section">
-        <h5>Section 1</h5>
-        <p>Stuff</p>
-      </div>
-      <div class="divider"></div>
-      <div class="section">
-        <h5>Section 2</h5>
-        <p>Stuff</p>
-      </div>
-      <div class="divider"></div>
-      <div class="section">
-        <h5>Section 3</h5>
-        <p>Stuff</p>
+        <div class="row">
+          <div class="subtitle col s12">
+            THE FOUNDATION FOR EVERYTHING WE DO IS AN UNSWERVING
+          </div>
+          <div class="title col s12">
+            <h1>COMMITMENT TO EXCELLENCE.</h1>
+          </div>
+        </div>  
+
+        <div class="row">
+          <div class="showcase col s12">
+            <img src="./images/hkguns/HK416 .22 LR Rifle.jpg"
+            alt="maingun"
+            >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="embed-yt col s12" id="vid_hk416_showcase">
+            <iframe
+              src="https://www.youtube.com/embed/pbImvaiXGFU"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
       </div>
     </main>
     
-    <footer class="page-footer">
+    <footer class="page-footer red darken-4">
       <div class="container">
         <div class="row">
+
           <div class="col l6 s12">
-            <h5 class="white-text">Footer Content</h5>
-            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            <h5 class="white-text">Project Description</h5>
+            <p class="grey-text text-lighten-4">
+              This is a website developed in the last minute by two first-year college students.
+            </p>
+            <p>
+              A mishmash of random elements and copying over of script files, hoping it works.
+            </p>
           </div>
+
           <div class="col l4 offset-l2 s12">
-            <h5 class="white-text">Links</h5>
+            <h5 class="white-text">Find Heckler and Koch</h5>
             <ul>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+              <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/hecklerandkoch/" target="_blank">Facebook</a></li>
+              <li><a class="grey-text text-lighten-3" href="https://twitter.com/HecklerAndKoch" target="_blank">Twitter</a></li>
+              <li><a class="grey-text text-lighten-3" href="https://www.youtube.com/user/HecklerKochTV" target="_blank">YouTube</a></li>
+              <li><a class="grey-text text-lighten-3" href="https://www.heckler-koch.com/en.html">Real Website</a></li>
             </ul>
           </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Site Map</h5>
+            <ul id="footer-sitemap"></ul>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Services Used</h5>
+            <ul>
+              <li><a href="" class="grey-text text-lighten-3">Materialize CSS</a> (CSS Framework)</li>
+              <li><a href="" class="grey-text text-lighten-3">GitHub</a> (Source Code Hosting)</li>
+              <li><a href="" class="grey-text text-lighten-3">GitHub Pages</a> (Website Hosting)</li>
+              <li><a href="" class="grey-text text-lighten-3">VS Code</a> (Development Environment)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Website Theme</h5>
+            <div class="switch">
+              <label class="clr-white">
+                Light Mode
+                <input type="checkbox" id="site_darkmodetoggle">
+                <span class="lever"></span>
+                Dark Mode
+              </label>
+            </div>
+          </div>
+          
         </div>
       </div>
       <div class="footer-copyright">
@@ -96,6 +148,6 @@
 
     <!-- Put the scripts in the bottom of Body to increase load time or something. -->
     <script src="./js/materialize.min.js" type="text/javascript"></script>
-    <script src="./js/index.js" type="text/javascript"></script>
+    <script src="./js/index.min.js" type="text/javascript"></script>
   </body>
 </html>
