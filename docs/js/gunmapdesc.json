@@ -1,0 +1,42 @@
+[
+    {
+        "partname":"barrel",
+        "desc":"The metal tube through which a projectile or shot charge is fired",
+        "imgLink":"./images/gunmap/barrel.PNG"
+    },
+    {
+        "partname":"buttstock",
+        "desc":"The stock of a firearm in the rear of the breech mechanism",
+        "imgLink":"./images/gunmap/buttstock.PNG"
+    },
+    {
+        "partname":"front sight",
+        "desc":" It assist in visually aligning ranged weapons",
+        "imgLink":"./images/gunmap/frontsight.PNG"
+    },
+    {
+        "partname":"grip",
+        "desc":"A handle that assists users at vertical aiming",
+        "imgLink":"./images/gunmap/grip.PNG"
+    },
+    {
+        "partname":"handguard",
+        "desc":"Barrel shroud specifically designed to allow the user to grip the front of the gun",
+        "imgLink":"./images/gunmap/handguard.PNG"
+    },
+    {
+        "partname":"lower receiver",
+        "desc":"It normally normally house the trigger, trigger group, and magazine",
+        "imgLink":"./images/gunmap/lowerreceiver.PNG"
+    },
+    {
+        "partname":"magazine",
+        "desc":"An ammunition storage and feeding device for a repeating firearm, either integral within the gun (internal/fixed magazine) or externally attached (detachable magazine).",
+        "imgLink":"./images/gunmap/magazine.PNG"
+    },
+    {
+        "partname":"upper receiver",
+        "desc":"It normally houses the barrel, breach, firing chamber, and bolt or bolt carrier grouping",
+        "imgLink":"./images/gunmap/upperreceiver.PNG"
+    }
+]
