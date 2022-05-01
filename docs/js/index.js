@@ -5,6 +5,10 @@ M.AutoInit();
  * Custom JS Code
  */
 
+//A wrapper for all of the code to hide the functions and objects from console
+//Somewhat redundant since the entire JS code can still be opened and edited from *another* console tab.
+document.addEventListener("DOMContentLoaded", function(ev){
+
 /*
     NAVBAR/Footer LINKS
 */
@@ -108,8 +112,10 @@ M.AutoInit();
     let themeCheckbx = document.querySelector("#site_darkmodetoggle");
     let bodyTag = document.querySelector("body");
 
+    //may be open for abuse, will add a ternary check.
     if(localStorage.hasOwnProperty("site_theme_body")){
-        bodyTag.classList = localStorage["site_theme_body"];
+        bodyTag.classList = (localStorage["site_theme_body"] == "dark-bg") ?
+            "dark-bg":"light-bg";
         themeCheckbx.checked = (bodyTag.classList == "dark-bg");
     }
 
@@ -125,12 +131,17 @@ M.AutoInit();
     let path_gundata = "./js/gundata.json";
     let path_gunmapdesc = "./js/gunmapdesc.json";
 
+    let path_list = {
+        "gundata":path_gundata,
+        "gunmapdesc":path_gunmapdesc
+    };
+
     //Reading JSON was more complicated than expected...
-    function loadJSON(JSONFilePath, callbackFunc){
+    function loadJSON(path_list_key, callbackFunc){
         let xhp = new XMLHttpRequest();
 
         xhp.overrideMimeType("application/json");
-        xhp.open("GET", JSONFilePath, true);
+        xhp.open("GET", path_list[path_list_key], true);
 
         xhp.onreadystatechange = function(){
             if(xhp.readyState == 4 && xhp.status == "200"){
@@ -154,3 +165,7 @@ M.AutoInit();
     List Gun Data
 */
 
+    
+
+//Close the DOMContentLoaded wrapper
+});
