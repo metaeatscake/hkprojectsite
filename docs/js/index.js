@@ -6,7 +6,7 @@ M.AutoInit();
  */
 
 /*
-    NAVBAR LINKS
+    NAVBAR/Footer LINKS
 */
     let mainSiteLinks = [
         {
@@ -99,3 +99,58 @@ M.AutoInit();
 
         navMob.appendChild(li);
     }
+
+/*
+    Website Theme
+*/
+
+    //Body theme
+    let themeCheckbx = document.querySelector("#site_darkmodetoggle");
+    let bodyTag = document.querySelector("body");
+
+    if(localStorage.hasOwnProperty("site_theme_body")){
+        bodyTag.classList = localStorage["site_theme_body"];
+        themeCheckbx.checked = (bodyTag.classList == "dark-bg");
+    }
+
+    themeCheckbx.addEventListener("click", function(){
+        bodyTag.classList = (themeCheckbx.checked) ? "dark-bg":"light-bg";
+        localStorage["site_theme_body"] = bodyTag.classList;
+    });
+
+/*
+    Preparations for JSON data handling
+*/
+
+    let path_gundata = "./js/gundata.json";
+    let path_gunmapdesc = "./js/gunmapdesc.json";
+
+    //Reading JSON was more complicated than expected...
+    function loadJSON(JSONFilePath, callbackFunc){
+        let xhp = new XMLHttpRequest();
+
+        xhp.overrideMimeType("application/json");
+        xhp.open("GET", JSONFilePath, true);
+
+        xhp.onreadystatechange = function(){
+            if(xhp.readyState == 4 && xhp.status == "200"){
+                callbackFunc(xhp.responseText);
+            }
+        };
+
+        xhp.send(null);
+    }
+
+    //Usage:
+    /*
+        loadJSON(path_var, function(response){
+            let jsonvar = JSON.parse(response);
+
+            --manipulate the data--
+        });
+    */
+
+/*
+    List Gun Data
+*/
+

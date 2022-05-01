@@ -6,11 +6,26 @@
     margin: 2em;
 }
 
+.dark-bg{
+    color: white;
+    background-color: rgb(69, 69, 69);
+}
+
+.light-bg{
+    color: black;
+    background-color: white;
+}
+
+.clr-white{
+    color: white;
+}
+
 .subtitle{
     border-bottom: 1px solid gray;
     font-size: 1.3rem;
+    font-weight: bold;
     text-align: center;
-    color: gray;
+    color: rgb(138, 138, 138);
     margin: 0.2rem;
     //border: 1px solid red;
 }
