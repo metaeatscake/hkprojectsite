@@ -6,20 +6,6 @@
     margin: 2em;
 }
 
-.dark-bg{
-    color: white;
-    background-color: rgb(69, 69, 69);
-}
-
-.light-bg{
-    color: black;
-    background-color: white;
-}
-
-.clr-white{
-    color: white;
-}
-
 .subtitle{
     border-bottom: 1px solid gray;
     font-size: 1.3rem;
@@ -39,20 +25,4 @@
     margin: 0.1rem;
 
     //border: 1px solid green;
-}
-
-.showcase{
-    img{
-        width: 100%;
-    }
-
-    margin: 1rem;
-}
-
-.embed-yt{
-    margin: 1rem;
-    iframe{
-        width: 100%;
-        min-height: 600px;
-    }
 }
