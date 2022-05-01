@@ -30,4 +30,13 @@
 .showcase img {
   width: 100%;
 }
+
+.embed-yt {
+  margin: 1rem;
+}
+
+.embed-yt iframe {
+  width: 100%;
+  min-height: 600px;
+}
 /*# sourceMappingURL=index.css.map */

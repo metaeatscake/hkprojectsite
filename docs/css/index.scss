@@ -33,3 +33,11 @@
 
     margin: 1rem;
 }
+
+.embed-yt{
+    margin: 1rem;
+    iframe{
+        width: 100%;
+        min-height: 600px;
+    }
+}

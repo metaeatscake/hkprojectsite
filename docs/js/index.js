@@ -28,17 +28,30 @@ M.AutoInit();
     ];
 
     let nav = document.querySelector("#main-navlist");
+    let sitemap = document.querySelector("#footer-sitemap");
 
-    //Initialize main-navlist
+    //Initialize main-navlist & footer
     for(const item of mainSiteLinks){
         let li = document.createElement("li");
         let anchor = document.createElement("a");
 
         anchor.href = item.link;
         anchor.innerHTML = item.desc;
+        anchor.classList = "grey-text text-lighten-3";
         li.appendChild(anchor);
 
         nav.appendChild(li);
+    }
+    for(const item of mainSiteLinks){
+        let li = document.createElement("li");
+        let anchor = document.createElement("a");
+
+        anchor.href = item.link;
+        anchor.innerHTML = item.desc;
+        anchor.classList = "grey-text text-lighten-3";
+        li.appendChild(anchor);
+
+        sitemap.appendChild(li);
     }
 
     let drawerSiteLinks = [

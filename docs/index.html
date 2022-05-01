@@ -30,7 +30,18 @@
       <div class="navbar-fixed">
         <nav>
           <div class="nav-wrapper">
-            <a href="#" class="brand-logo"> <i class="fa-solid fa-gun"></i> HK</a>
+            <div class="logo_adjust">
+              <a href="#" class="brand-logo"> 
+                <div class="container">
+                  <div class="row">
+                    <div class="col s6"><i class="fa-solid fa-gun"></i></div>
+                    <div class="col s6">
+                      <p>HK</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
             <a href="#" data-target="mobile-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" id="main-navlist"></ul>
           </div>
@@ -50,7 +61,16 @@
             <h1>COMMITMENT TO EXCELLENCE.</h1>
           </div>
           <div class="showcase col s12">
-            <img src="./images/hkguns/HK416 .22 LR Rifle.jpg" alt="maingun">
+            <img src="./images/hkguns/HK416 .22 LR Rifle.jpg" 
+            alt="maingun"
+            >
+          </div>
+          <div class="embed-yt col s12" id="vid_hk416_showcase">
+            <iframe 
+              src="https://www.youtube.com/embed/pbImvaiXGFU" 
+              title="YouTube video player" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -59,17 +79,42 @@
     <footer class="page-footer">
       <div class="container">
         <div class="row">
+
           <div class="col l6 s12">
-            <h5 class="white-text">Footer Content</h5>
-            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            <h5 class="white-text">Project Description</h5>
+            <p class="grey-text text-lighten-4">
+              This is a website developed in the last minute by two first-year college students.
+            </p>
+            <p>
+              A mishmash of random elements and copying over of script files, hoping it works.
+            </p>
           </div>
+
           <div class="col l4 offset-l2 s12">
-            <h5 class="white-text">Links</h5>
+            <h5 class="white-text">Find Heckler and Koch</h5>
             <ul>
               <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/hecklerandkoch/" target="_blank">Facebook</a></li>
               <li><a class="grey-text text-lighten-3" href="https://twitter.com/HecklerAndKoch" target="_blank">Twitter</a></li>
               <li><a class="grey-text text-lighten-3" href="https://www.youtube.com/user/HecklerKochTV" target="_blank">YouTube</a></li>
-              <li><a class="grey-text text-lighten-3" href="https://www.heckler-koch.com/en.html">Primary Website</a></li>
+              <li><a class="grey-text text-lighten-3" href="https://www.heckler-koch.com/en.html">Real Website</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Site Map</h5>
+            <ul id="footer-sitemap">
+            </ul>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Services Used</h5>
+            <ul>
+              <li><a href="" class="grey-text text-lighten-3">Materialize CSS</a> (CSS Framework)</li>
+              <li><a href="" class="grey-text text-lighten-3">GitHub</a> (Source Code Hosting)</li>
+              <li><a href="" class="grey-text text-lighten-3">GitHub Pages</a> (Website Hosting)</li>
+              <li><a href="" class="grey-text text-lighten-3">VS Code</a> (Development Environment)</li>
             </ul>
           </div>
         </div>
