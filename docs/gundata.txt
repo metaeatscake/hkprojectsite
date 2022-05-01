@@ -80,7 +80,7 @@ caliber:9 mm
 length:8.78 in	
 height:6.50 in	
 barrel_length:5.51 in.	
-sight_radius7.68 in.
+sight_radius:7.68 in.
 #end
 
 [P30SK]
