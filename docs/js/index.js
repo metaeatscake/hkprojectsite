@@ -9,16 +9,17 @@ M.AutoInit();
 
 //A wrapper for all of the code to hide the functions and objects from console
 //Somewhat redundant since the entire JS code can still be opened and edited from *another* console tab.
-document.addEventListener("DOMContentLoaded", function(ev){
-
+document.addEventListener("DOMContentLoaded", function(_ev){
     main();
-
 });
 
 function main(){
-    /*
-        NAVBAR/Footer LINKS
-    */
+
+    let nav = document.querySelector("#main-navlist");
+    let sitemap = document.querySelector("#footer-sitemap");
+    let navMob = document.querySelector("#mobile-sidenav");
+    let anchor_classList = "grey-text text-lighten-3";
+
     let mainSiteLinks = [
         {
             "link":"./index.html",
@@ -37,33 +38,6 @@ function main(){
             "desc":"Contact"
         }
     ];
-
-    let nav = document.querySelector("#main-navlist");
-    let sitemap = document.querySelector("#footer-sitemap");
-
-    //Initialize main-navlist & footer
-    for(const item of mainSiteLinks){
-        let li = document.createElement("li");
-        let anchor = document.createElement("a");
-
-        anchor.href = item.link;
-        anchor.innerHTML = item.desc;
-        anchor.classList = "grey-text text-lighten-3";
-        li.appendChild(anchor);
-
-        nav.appendChild(li);
-    }
-    for(const item of mainSiteLinks){
-        let li = document.createElement("li");
-        let anchor = document.createElement("a");
-
-        anchor.href = item.link;
-        anchor.innerHTML = item.desc;
-        anchor.classList = "grey-text text-lighten-3";
-        li.appendChild(anchor);
-
-        sitemap.appendChild(li);
-    }
 
     let drawerSiteLinks = [
         {
@@ -91,143 +65,190 @@ function main(){
         }
     ];
 
-    let navMob = document.querySelector("#mobile-sidenav");
+    initAnchors(mainSiteLinks, nav, anchor_classList);
+    initAnchors(mainSiteLinks, sitemap, anchor_classList);
+    initAnchors(drawerSiteLinks, navMob);
 
-    //Initialize mobile mode navbar drawer
-    for(const item of drawerSiteLinks){
+    //Themes
+    initTheme();
+
+    if(document.getElementById("main_guns")){initGunList();}
+}
+
+function initAnchors(_dataSet, _targetElement, _classList = null){
+
+    for(const item of _dataSet){
         let li = document.createElement("li");
         let anchor = document.createElement("a");
 
         if(item.isDivider){
             li.classList = "divider";
-            navMob.appendChild(li);
+            _targetElement.appendChild(li);
             continue;
+        }
+
+        if(_classList){
+            anchor.classList = _classList;
         }
 
         anchor.href = item.link;
         anchor.innerHTML = item.desc;
         li.appendChild(anchor);
 
-        navMob.appendChild(li);
-    }
-
-    /*
-    Website Theme
-    */
-
-    //Body theme
-    let themeCheckbx = document.querySelector("#site_darkmodetoggle");
-    let bodyTag = document.querySelector("body");
-
-    let bodyTheme_light = "black-text grey lighten-2";
-    let bodyTheme_dark = "white-text grey darken-2";
-
-    let useDark = (bodyTag.classList == bodyTheme_dark);
-
-    //may be open for abuse, will add a ternary check.
-    if(localStorage.hasOwnProperty("site_theme_body")){
-        bodyTag.classList = (localStorage["site_theme_body"] == bodyTheme_dark) ?
-            bodyTheme_dark:bodyTheme_light;
-        themeCheckbx.checked = (bodyTag.classList == bodyTheme_dark);
-    }
-
-    themeCheckbx.addEventListener("click", function(){
-        useDark = themeCheckbx.checked;
-        bodyTag.classList = (useDark) ? bodyTheme_dark:bodyTheme_light;
-        localStorage["site_theme_body"] = bodyTag.classList;
-    });
-
-    /*
-    Preparations for JSON data handling
-    */
-
-    let path_gundata = "./js/gundata.json";
-    let path_gunmapdesc = "./js/gunmapdesc.json";
-
-    let path_list = {
-        "gundata":path_gundata,
-        "gunmapdesc":path_gunmapdesc
-    };
-
-    //Reading JSON was more complicated than expected...
-    function loadJSON(path_list_key, callbackFunc){
-        let xhp = new XMLHttpRequest();
-
-        xhp.overrideMimeType("application/json");
-        xhp.open("GET", path_list[path_list_key], true);
-
-        xhp.onreadystatechange = function(){
-            if(xhp.readyState == 4 && xhp.status == "200"){
-                callbackFunc(xhp.responseText);
-            }
-        };
-
-        xhp.send(null);
-    }
-
-    function findRowByField(json_arr, target_key, value){
-        for(const x of json_arr)
-            if(x[target_key] == value)
-                return x;
-    }
-
-    //Usage:
-    /*
-        loadJSON(path_var, function(response){
-            let jsonvar = JSON.parse(response);
-
-            --manipulate the data--
-        });
-    */
-
-    /*
-    GunList related JS
-    */
-
-    let gunMain = document.getElementById("main_guns");
-    if(gunMain){
-
-        let cardList = Array.from( document.querySelectorAll(".card"));
-        let themes = {
-            "dark":"card grey darken-4",
-            "light":"card grey lighten-4"
-        };
-
-        function setCardTheme(useDarkBool){
-
-            cardList.forEach(function(node, _idx){
-                
-                let chosenTheme = (useDarkBool) ?
-                    themes.dark : themes.light;
-                
-                node.classList = chosenTheme;
-            });
-
-            localStorage["site_theme_cards"] = (useDarkBool) ? 
-                themes.dark : themes.light;
-        }
-
-        if(localStorage.hasOwnProperty("site_theme_cards")){
-            setCardTheme(themeCheckbx.checked);
-        }
-
-        themeCheckbx.addEventListener("click", function(){
-            setCardTheme(themeCheckbx.checked);
-        });
-
-        loadJSON("gundata", function(response){
-            let JSONdata = JSON.parse(response);
-
-            cardList.forEach(function(node, _idx){
-                node.querySelector(".stat-trigger").addEventListener("click", function(_ev){
-                    console.log("Card name: "+node.outerText.split("\n")[0]);
-                    console.log("Object: ");
-                    console.log(findRowByField(JSONdata, "name", node.outerText.split("\n")[0]));
-                });
-            });
-        });
-
+        _targetElement.appendChild(li);
     }
 }
 
-//function initAnchors(_dataSet, _targetElement, _classList = null, _hasDivider = null)
+function getThemeMap(){
+    return {
+        "body":{
+            "dark":"white-text grey darken-2",
+            "light":"black-text grey lighten-2"
+        },
+        "cards":{
+            "dark":"card grey darken-4",
+            "light":"card grey lighten-4"
+        }
+    };
+}
+
+function initTheme(){
+        //Body theme
+    let themeCheckbx = document.querySelector("#site_darkmodetoggle");
+   
+    initTheme_body(themeCheckbx, getThemeMap());
+
+    if(document.getElementById("main_guns")){
+
+        let cardList = Array.from( document.querySelectorAll(".card"));
+
+        if(localStorage.hasOwnProperty("site_theme_cards")){
+            initTheme_cards(cardList, getThemeMap(), 
+                localStorage["site_theme_cards"] == getThemeMap().cards.dark);
+        }
+
+        themeCheckbx.addEventListener("click", function(){
+            initTheme_cards(cardList, getThemeMap(), themeCheckbx.checked);
+        });
+    }
+}
+
+    function initTheme_body(_switchElem, _themeMap){
+        
+        let bodyTag = document.querySelector("body");
+        
+        //may be open for abuse, will add a ternary check.
+        if(localStorage.hasOwnProperty("site_theme_body")){
+            bodyTag.classList = (localStorage["site_theme_body"] == _themeMap.body.dark) ?
+                _themeMap.body.dark:_themeMap.body.light;
+            _switchElem.checked = (bodyTag.classList == _themeMap.body.dark);
+        }
+
+        _switchElem.addEventListener("click", function(){
+
+            const themes = getThemeMap();
+            bodyTag.classList = (_switchElem.checked) ? 
+                themes.body.dark:themes.body.light;
+            localStorage["site_theme_body"] = bodyTag.classList;
+        });
+
+    }
+
+    function initTheme_cards(_cardList, _themeMap, _useDarkMode){
+
+        const chosenTheme = (_useDarkMode) ?
+            _themeMap.cards.dark : _themeMap.cards.light;
+
+        _cardList.forEach(function(node, _idx){
+            node.classList = chosenTheme;
+
+        });
+
+        localStorage["site_theme_cards"] = chosenTheme;
+    }
+
+function initGunList(){
+
+    let cardList = Array.from( document.querySelectorAll(".card"));
+    let targetModal = document.querySelector("#gunListModal");
+    let modalTable = targetModal.querySelector(".modal-content").querySelector("table");
+    let path_gundata = "./js/gundata.json";
+
+    loadJSON(path_gundata, function(response){
+        let JSONdata = JSON.parse(response);
+
+        cardList.forEach(function(node, _idx){
+
+            const gunName = node.outerText.split("\n")[0];
+            node.querySelector(".stat-trigger").addEventListener("click", function(_ev){
+                
+                const tblcaption = "Showing Gun Stats for: ";
+                const gunStats = findRowByField(JSONdata, "name", gunName);
+                modalTable.querySelector("caption").innerHTML = tblcaption + gunStats.name;
+
+                modalTable.querySelector("thead").replaceChildren(
+                    (function(){
+                        let tabrow = document.createElement("tr");
+
+                        let header1 = document.createElement("th");
+                        header1.textContent = "Field";
+                        let header2 = document.createElement("th");
+                        header2.textContent = "Value";
+
+                        tabrow.appendChild(header1);
+                        tabrow.appendChild(header2);
+
+                        return tabrow;
+                    })()
+                );
+
+                let rows = modalTable.querySelector("tbody");
+
+                while(rows.firstChild)
+                    rows.removeChild(rows.firstChild);
+
+                for(const x in gunStats){
+                    modalTable.querySelector("tbody").appendChild(
+                        (function(){
+                            let tabrow = document.createElement("tr");
+
+                            let cell1 = document.createElement("td");
+                            cell1.textContent = x;
+                            let cell2 = document.createElement("td");
+                            cell2.textContent = gunStats[x];
+
+                            tabrow.appendChild(cell1);
+                            tabrow.appendChild(cell2);
+
+                            return tabrow;
+                        })()
+                    );
+                }
+                
+            });
+        });
+        
+    });
+}
+
+function findRowByField(json_arr, target_key, value){
+    for(const x of json_arr)
+        if(x[target_key] == value)
+            return x;
+}
+
+function loadJSON(_src, _callbackFunc){
+    let xhp = new XMLHttpRequest();
+
+    xhp.overrideMimeType("application/json");
+    xhp.open("GET", _src, true);
+
+    xhp.onreadystatechange = function(){
+        if(xhp.readyState == 4 && xhp.status == "200"){
+            _callbackFunc(xhp.responseText);
+        }
+    };
+
+    xhp.send(null);
+}
+
