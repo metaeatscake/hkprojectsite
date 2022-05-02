@@ -336,7 +336,7 @@ function initGunMap(){
 
         let outArr = [];
         _pointCoords.forEach(function(_x, _i){
-            outArr[_i] = Math.round(_x * (baseArr[_i] / currArr[_i]));
+            outArr[_i] = Math.round((_x / baseArr[_i]) * currArr[_i]);
         });
 
         return outArr;
