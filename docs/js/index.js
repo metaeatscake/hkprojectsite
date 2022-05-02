@@ -308,7 +308,7 @@ function initGunMap(){
             x.addEventListener("click", (_ev) => {
                 console.log("Click detected on " + x.getAttribute("title"));
                 console.log(findRowByField(jsondata, "partname", x.getAttribute("title")));
-                this.alert(x);
+                //window.alert(x);
             });
 
         }
@@ -317,12 +317,16 @@ function initGunMap(){
 }
 
     function imgMap_getAdjustedCoords(_baseReso, _pointCoords, _currentReso){
+        //The initial/base resolution of the image
+        //Arranged as x,y,x,y
         const baseArr = [
             _baseReso.width,
             _baseReso.height,
             _baseReso.width,
             _baseReso.height
         ];
+        //The resolution of the image in the screen
+        //x,y,x,y
         const currArr = [
             _currentReso.clientWidth,
             _currentReso.clientHeight,
