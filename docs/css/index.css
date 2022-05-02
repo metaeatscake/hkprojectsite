@@ -24,7 +24,7 @@
   text-align: center;
 }
 
-.row fieldset{
+.row fieldset {
   border: 2px #F00 solid;
   border-radius: 10px;
 }
@@ -38,7 +38,4 @@
   display: inline-block;
   font-size: 16px;
 }
-
-
-
 /*# sourceMappingURL=index.css.map */
