@@ -270,45 +270,70 @@ function initGunMap(){
     loadJSON(datasrc, function(response){
         const jsondata = JSON.parse(response);
 
+        window.addEventListener("resize", function(){
+            for(const x of maptag.children){
+                
+                let mapCoords = [];
+                x.getAttribute("coords").split(",").forEach(function(_x, _i){
+                    mapCoords.push(parseInt(_x))
+                });
+                
+                x.setAttribute("coords", 
+                    imgMap_getAdjustedCoords(
+                        imgdm,
+                        mapCoords,
+                        mapimg
+                    ).join()
+                );
+
+            }
+            
+        });
+
         for(const x of maptag.children){
-            let partdata = findRowByField(jsondata, "partname", x.getAttribute("title"));
+
             let mapCoords = [];
             x.getAttribute("coords").split(",").forEach(function(_x, _i){
                 mapCoords.push(parseInt(_x))
             });
-
-            console.log("Base Image Resolution: " + imgdm.width + "x" + imgdm.height);
-            console.log("Coordinates of area element:");
-            console.log(mapCoords);
-            let coordRatios = [];
-            mapCoords.forEach(function(_x, _i){
-                if(_i === 0 || _i === 2)
-                    coordRatios[_i] = mapCoords[_i] / imgdm.width;
-                else if (_i === 1 || _i === 3)
-                    coordRatios[_i] = mapCoords[_i] / imgdm.height;
-            });
-            console.log("Ratio of coordinate to img reso");
-            console.log(coordRatios);
-
-            console.log("Current Image Resolution: " + mapimg.clientWidth + "x" + mapimg.clientHeight);
-
-            let adjustedCoords = [];
-            coordRatios.forEach(function(_x, _i){
-                if(_i === 0 || _i === 2)
-                    adjustedCoords[_i] = _x * mapimg.width;
-                else if (_i === 1 || _i === 3)
-                    adjustedCoords[_i] = _x * mapimg.height;
-            });
-
-            console.log("Adjusted Values");
-            console.log(adjustedCoords);
-
-
             
-            mapimg.addEventListener("click", function(_ev){
-                console.log("current map img width: " + mapimg.clientWidth);
-                console.log("current map img height: " + mapimg.clientHeight);
+            x.setAttribute("coords", 
+                imgMap_getAdjustedCoords(
+                    imgdm,
+                    mapCoords,
+                    mapimg
+                ).join()
+            );
+            
+            x.addEventListener("click", (_ev) => {
+                console.log("Click detected on " + x.getAttribute("title"));
+                console.log(findRowByField(jsondata, "partname", x.getAttribute("title")));
+                this.alert(x);
             });
+
         }
+
     });
 }
+
+    function imgMap_getAdjustedCoords(_baseReso, _pointCoords, _currentReso){
+        const baseArr = [
+            _baseReso.width,
+            _baseReso.height,
+            _baseReso.width,
+            _baseReso.height
+        ];
+        const currArr = [
+            _currentReso.clientWidth,
+            _currentReso.clientHeight,
+            _currentReso.clientWidth,
+            _currentReso.clientHeight
+        ];
+
+        let outArr = [];
+        _pointCoords.forEach(function(_x, _i){
+            outArr[_i] = Math.round(_x * (baseArr[_i] / currArr[_i]));
+        });
+
+        return outArr;
+    }
