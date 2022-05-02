@@ -3,15 +3,23 @@ M.AutoInit();
 
 /**
  * Custom JS Code
+ * 
+ * In This File: Forcing Client-Side to do Server-Side processing.
  */
 
 //A wrapper for all of the code to hide the functions and objects from console
 //Somewhat redundant since the entire JS code can still be opened and edited from *another* console tab.
-document.addEventListener("DOMContentLoaded", function(ev){
+document.addEventListener("DOMContentLoaded", function(_ev){
+    main();
+});
 
-/*
-    NAVBAR/Footer LINKS
-*/
+function main(){
+
+    let nav = document.querySelector("#main-navlist");
+    let sitemap = document.querySelector("#footer-sitemap");
+    let navMob = document.querySelector("#mobile-sidenav");
+    let anchor_classList = "grey-text text-lighten-3";
+
     let mainSiteLinks = [
         {
             "link":"./index.html",
@@ -30,33 +38,6 @@ document.addEventListener("DOMContentLoaded", function(ev){
             "desc":"Contact"
         }
     ];
-
-    let nav = document.querySelector("#main-navlist");
-    let sitemap = document.querySelector("#footer-sitemap");
-
-    //Initialize main-navlist & footer
-    for(const item of mainSiteLinks){
-        let li = document.createElement("li");
-        let anchor = document.createElement("a");
-
-        anchor.href = item.link;
-        anchor.innerHTML = item.desc;
-        anchor.classList = "grey-text text-lighten-3";
-        li.appendChild(anchor);
-
-        nav.appendChild(li);
-    }
-    for(const item of mainSiteLinks){
-        let li = document.createElement("li");
-        let anchor = document.createElement("a");
-
-        anchor.href = item.link;
-        anchor.innerHTML = item.desc;
-        anchor.classList = "grey-text text-lighten-3";
-        li.appendChild(anchor);
-
-        sitemap.appendChild(li);
-    }
 
     let drawerSiteLinks = [
         {
@@ -84,88 +65,297 @@ document.addEventListener("DOMContentLoaded", function(ev){
         }
     ];
 
-    let navMob = document.querySelector("#mobile-sidenav");
+    initAnchors(mainSiteLinks, nav, anchor_classList);
+    initAnchors(mainSiteLinks, sitemap, anchor_classList);
+    initAnchors(drawerSiteLinks, navMob);
 
-    //Initialize mobile mode navbar drawer
-    for(const item of drawerSiteLinks){
+    //Themes
+    initTheme();
+
+    if(document.getElementById("main_guns")){initGunList();}
+    if(document.getElementById("main_416map")){initGunMap();}
+}
+
+function initAnchors(_dataSet, _targetElement, _classList = null){
+
+    for(const item of _dataSet){
         let li = document.createElement("li");
         let anchor = document.createElement("a");
 
         if(item.isDivider){
             li.classList = "divider";
-            navMob.appendChild(li);
+            _targetElement.appendChild(li);
             continue;
+        }
+
+        if(_classList){
+            anchor.classList = _classList;
         }
 
         anchor.href = item.link;
         anchor.innerHTML = item.desc;
         li.appendChild(anchor);
 
-        navMob.appendChild(li);
+        _targetElement.appendChild(li);
     }
+}
 
-/*
-    Website Theme
-*/
+function getThemeMap(){
+    return {
+        "body":{
+            "dark":"white-text grey darken-2",
+            "light":"black-text grey lighten-2"
+        },
+        "cards":{
+            "dark":"card grey darken-4",
+            "light":"card grey lighten-4"
+        }
+    };
+}
 
-    //Body theme
+function initTheme(){
+        //Body theme
     let themeCheckbx = document.querySelector("#site_darkmodetoggle");
-    let bodyTag = document.querySelector("body");
+   
+    initTheme_body(themeCheckbx, getThemeMap());
 
-    //may be open for abuse, will add a ternary check.
-    if(localStorage.hasOwnProperty("site_theme_body")){
-        bodyTag.classList = (localStorage["site_theme_body"] == "dark-bg") ?
-            "dark-bg":"light-bg";
-        themeCheckbx.checked = (bodyTag.classList == "dark-bg");
+    if(document.getElementById("main_guns")){
+
+        let cardList = Array.from( document.querySelectorAll(".card"));
+
+        if(localStorage.hasOwnProperty("site_theme_cards")){
+            initTheme_cards(cardList, getThemeMap(), 
+                localStorage["site_theme_cards"] == getThemeMap().cards.dark);
+        }
+
+        themeCheckbx.addEventListener("click", function(){
+            initTheme_cards(cardList, getThemeMap(), themeCheckbx.checked);
+        });
+    }
+}
+
+    function initTheme_body(_switchElem, _themeMap){
+        
+        let bodyTag = document.querySelector("body");
+        
+        //may be open for abuse, will add a ternary check.
+        if(localStorage.hasOwnProperty("site_theme_body")){
+            bodyTag.classList = (localStorage["site_theme_body"] == _themeMap.body.dark) ?
+                _themeMap.body.dark:_themeMap.body.light;
+            _switchElem.checked = (bodyTag.classList == _themeMap.body.dark);
+        }
+
+        _switchElem.addEventListener("click", function(){
+
+            const themes = getThemeMap();
+            bodyTag.classList = (_switchElem.checked) ? 
+                themes.body.dark:themes.body.light;
+            localStorage["site_theme_body"] = bodyTag.classList;
+        });
+
     }
 
-    themeCheckbx.addEventListener("click", function(){
-        bodyTag.classList = (themeCheckbx.checked) ? "dark-bg":"light-bg";
-        localStorage["site_theme_body"] = bodyTag.classList;
-    });
+    function initTheme_cards(_cardList, _themeMap, _useDarkMode){
 
-/*
-    Preparations for JSON data handling
-*/
+        const chosenTheme = (_useDarkMode) ?
+            _themeMap.cards.dark : _themeMap.cards.light;
 
+        _cardList.forEach(function(node, _idx){
+            node.classList = chosenTheme;
+
+        });
+
+        localStorage["site_theme_cards"] = chosenTheme;
+    }
+
+function initGunList(){
+
+    let cardList = Array.from( document.querySelectorAll(".card"));
+    let targetModal = document.querySelector("#gunListModal");
+    let modalTable = targetModal.querySelector(".modal-content").querySelector("table");
     let path_gundata = "./js/gundata.json";
-    let path_gunmapdesc = "./js/gunmapdesc.json";
 
-    let path_list = {
-        "gundata":path_gundata,
-        "gunmapdesc":path_gunmapdesc
+    loadJSON(path_gundata, function(response){
+        let JSONdata = JSON.parse(response);
+
+        cardList.forEach(function(node, _idx){
+
+            const gunName = node.outerText.split("\n")[0];
+            node.querySelector(".stat-trigger").addEventListener("click", function(_ev){
+                
+                const tblcaption = "Showing Gun Stats for: ";
+                const gunStats = findRowByField(JSONdata, "name", gunName);
+                modalTable.querySelector("caption").innerHTML = tblcaption + gunStats.name;
+
+                modalTable.querySelector("thead").replaceChildren(
+                    (function(){
+                        let tabrow = document.createElement("tr");
+
+                        let header1 = document.createElement("th");
+                        header1.textContent = "Field";
+                        let header2 = document.createElement("th");
+                        header2.textContent = "Value";
+
+                        tabrow.appendChild(header1);
+                        tabrow.appendChild(header2);
+
+                        return tabrow;
+                    })()
+                );
+
+                let rows = modalTable.querySelector("tbody");
+
+                while(rows.firstChild)
+                    rows.removeChild(rows.firstChild);
+
+                for(const x in gunStats){
+                    modalTable.querySelector("tbody").appendChild(
+                        (function(){
+                            let tabrow = document.createElement("tr");
+
+                            let cell1 = document.createElement("td");
+                            cell1.textContent = x;
+                            let cell2 = document.createElement("td");
+                            cell2.textContent = gunStats[x];
+
+                            tabrow.appendChild(cell1);
+                            tabrow.appendChild(cell2);
+
+                            return tabrow;
+                        })()
+                    );
+                }
+
+            });
+        });
+        
+    });
+}
+
+function findRowByField(json_arr, target_key, value){
+    for(const x of json_arr)
+        if(x[target_key] == value)
+            return x;
+}
+
+function loadJSON(_src, _callbackFunc){
+    let xhp = new XMLHttpRequest();
+
+    xhp.overrideMimeType("application/json");
+    xhp.open("GET", _src, true);
+
+    xhp.onreadystatechange = function(){
+        if(xhp.readyState == 4 && xhp.status == "200"){
+            _callbackFunc(xhp.responseText);
+        }
     };
 
-    //Reading JSON was more complicated than expected...
-    function loadJSON(path_list_key, callbackFunc){
-        let xhp = new XMLHttpRequest();
+    xhp.send(null);
+}
 
-        xhp.overrideMimeType("application/json");
-        xhp.open("GET", path_list[path_list_key], true);
+function initGunMap(){
 
-        xhp.onreadystatechange = function(){
-            if(xhp.readyState == 4 && xhp.status == "200"){
-                callbackFunc(xhp.responseText);
+    //MATH
+
+    let mapDiv = document.querySelector(".mapHolder");
+    let mapimg = mapDiv.querySelector("img");
+    let maptag = mapDiv.querySelector("map");
+    const datasrc = "./js/gunmapdesc.json";
+
+    const imgdm = {
+        "height": mapimg.naturalHeight,
+        "width": mapimg.naturalWidth
+    };
+
+    loadJSON(datasrc, function(response){
+        const jsondata = JSON.parse(response);
+
+        for(const x of maptag.children){
+
+            let mapCoords = [];
+            x.getAttribute("coords").split(",").forEach(function(_x, _i){
+                mapCoords.push(parseInt(_x))
+            });
+            
+            x.setAttribute("coords", 
+                imgMap_getAdjustedCoords(
+                    imgdm,
+                    mapCoords,
+                    mapimg
+                ).join()
+            );
+
+            x.classList.add("modal-trigger");
+            x.href = "#gunPartModal";
+            
+            x.addEventListener("click", (_ev) => {
+                
+                const targ = findRowByField(jsondata, "partname", x.getAttribute("title"));
+                let modal_img = document.getElementById("gmpModal_img");
+                let modal_title = document.getElementById("gmpModal_title");
+                let modal_content = document.getElementById("gmpModal_content");
+
+                modal_img.setAttribute("src", targ.imgLink);
+                modal_img.setAttribute("alt", targ.partname);
+
+                modal_title.innerHTML = targ.partname;
+                modal_title.classList.add("modal-span");
+
+                modal_content.replaceChildren((() => {
+                    let p = document.createElement("p");
+                    p.textContent = targ.desc;
+
+                    return p;
+                })());
+            });
+
+        }
+
+        window.addEventListener("resize", function(){
+            for(const x of maptag.children){
+                
+                let mapCoords = [];
+                x.getAttribute("coords").split(",").forEach(function(_x, _i){
+                    mapCoords.push(parseInt(_x))
+                });
+                
+                x.setAttribute("coords", 
+                    imgMap_getAdjustedCoords(
+                        imgdm,
+                        mapCoords,
+                        mapimg
+                    ).join()
+                );
+
             }
-        };
-
-        xhp.send(null);
-    }
-
-    //Usage:
-    /*
-        loadJSON(path_var, function(response){
-            let jsonvar = JSON.parse(response);
-
-            --manipulate the data--
+            
         });
-    */
 
-/*
-    List Gun Data
-*/
+    });
+}
 
-    
+    function imgMap_getAdjustedCoords(_baseReso, _pointCoords, _currentReso){
+        //The initial/base resolution of the image
+        //Arranged as x,y,x,y
+        const baseArr = [
+            _baseReso.width,
+            _baseReso.height,
+            _baseReso.width,
+            _baseReso.height
+        ];
+        //The resolution of the image in the screen
+        //x,y,x,y
+        const currArr = [
+            _currentReso.clientWidth,
+            _currentReso.clientHeight,
+            _currentReso.clientWidth,
+            _currentReso.clientHeight
+        ];
 
-//Close the DOMContentLoaded wrapper
-});
+        let outArr = [];
+        _pointCoords.forEach(function(_x, _i){
+            outArr[_i] = Math.round((_x / baseArr[_i]) * currArr[_i]);
+        });
+
+        return outArr;
+    }

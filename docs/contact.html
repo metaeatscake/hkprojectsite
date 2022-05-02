@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Tab Details -->
+    <title>HK Project</title>
+    <link rel="shortcut icon" href="./images/hkmp5.png" type="image/x-icon">
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <!-- Stylesheets: MaterializeCSS + custom css -->
+    <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <!-- Icons: Material + FontAwesome -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body class="light-bg">
+    <header>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper red darken-4">
+            <div class="logo_adjust">
+              <a href="#" class="brand-logo">
+                <div class="container">
+                  <div class="row">
+                    <div class="col s6">
+                      <i class="fa-solid fa-gun"></i>
+                    </div>
+                    <div class="col s6">
+                      <p>HK</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <a href="#" data-target="mobile-sidenav" class="sidenav-trigger">
+              <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down" id="main-navlist"></ul>
+          </div>
+        </nav>
+      </div>
+      <ul class="sidenav" id="mobile-sidenav"></ul>
+    </header>
+    <main class="mgn-2em">
+      <div class="container">
+        <div class="row">
+          <div class="subtitle col s12"> THE FOUNDATION FOR EVERYTHING WE DO IS AN UNSWERVING </div>
+          <div class="title col s12">
+            <h1>CONTACT</h1>
+            <br>
+          </div>
+          <div class="form">
+            <hr />
+            <form method="post" action="" autocomplete="on">
+              <br />
+              <br />
+              <div class="textinfo">
+                <br />
+                <br />
+                <fieldset>
+                  <legend align=left>Personal Info</legend>
+                  <br /> Name: <input type=text name="pangalan" size=15 maxlength=20>
+                  <br />
+                  <br /> Age: <input type=text name="pangalan" size=2 maxlength=3>
+                  <br />
+                  <br /> Sex: <input type=text name="sex">
+                  <br /> Birthday: <input type=date name="bday">
+                  <br />
+                  <br /> Email: <input type=email name="email" rows="4" cols="100" maxlength=100>
+                  <br />
+                  <br /> Contact Number: <input type=text name="contactnumber">
+                  <br />
+                  <br />
+                </fieldset>
+                <br />
+                <br />
+                <fieldset>
+                  <legend align=left>Message</legend>
+                  <br /> Guns: <br />
+                  <br />
+                  <textarea rows=20 cols=100 id="suggest"></textarea>
+                  <br />
+                  <br /> Looks of Website: <br />
+                  <br />
+                  <textarea rows=20 cols=100 id="suggest"></textarea>
+                  <br />
+                  <br /> Website Responsiveness: <br />
+                  <br />
+                  <textarea rows=20 cols=100 id="suggest"></textarea>
+                  <br />
+                  <br /> Concerns: <br />
+                  <br />
+                  <textarea rows=20 cols=100 id="suggest"></textarea>
+                  <br />
+                  <br />
+                </fieldset>
+                <br />
+                <br />
+                <input class="button" type=submit value=Submit>
+                <input class="button" type=reset value=Reset>
+            </form>
+            <br />
+            <br />
+            <br />
+            <a href="#top">Back to top</a>
+          </div>
+          <br>
+        </div>
+    </main>
+    <footer class="page-footer red darken-4">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Project Description</h5>
+            <p class="grey-text text-lighten-4"> This is a website made with love for Heckler And Koch Guns.</p>
+            <p> It includes uses HTML, CSS, JavaScript, and even Python </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Find Heckler and Koch</h5>
+            <ul>
+              <li>
+                <a class="grey-text text-lighten-3" href="https://www.facebook.com/hecklerandkoch/" target="_blank">Facebook</a>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="https://twitter.com/HecklerAndKoch" target="_blank">Twitter</a>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="https://www.youtube.com/user/HecklerKochTV" target="_blank">YouTube</a>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="https://www.heckler-koch.com/en.html">Real Website</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Site Map</h5>
+            <ul id="footer-sitemap"></ul>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Services Used</h5>
+            <ul>
+              <li>
+                <a href="https://materializecss.com/" class="grey-text text-lighten-3">Materialize CSS</a> (CSS Framework)
+              </li>
+              <li>
+                <a href="https://github.com/" class="grey-text text-lighten-3">GitHub</a> (Source Code Hosting)
+              </li>
+              <li>
+                <a href="https://pages.github.com/" class="grey-text text-lighten-3">GitHub Pages</a> (Website Hosting)
+              </li>
+              <li>
+                <a href="https://code.visualstudio.com/" class="grey-text text-lighten-3">VS Code</a> (Development Environment)
+              </li>
+              <li>
+                <a href="https://www.javascript.com/" class="grey-text text-lighten-3">JavaScript</a> (Programming language)
+              </li>
+              <li>
+                <a href="https://www.python.org/" class="grey-text text-lighten-3">Python</a> (Programming language)
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Website Theme</h5>
+            <div class="switch">
+              <label class="clr-white"> Light Mode <input type="checkbox" id="site_darkmodetoggle">
+                <span class="lever"></span> Dark Mode </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright"> We do not own the Heckler and Koch brand. This is a school project. </div>
+    </footer>
+    <!-- Put the scripts in the bottom of Body to increase load time or something. -->
+    <script src="./js/materialize.min.js" type="text/javascript"></script>
+    <script src="./js/index.min.js" type="text/javascript"></script>
+  </body>
+</html>
