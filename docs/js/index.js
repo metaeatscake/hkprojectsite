@@ -73,6 +73,7 @@ function main(){
     initTheme();
 
     if(document.getElementById("main_guns")){initGunList();}
+    if(document.getElementById("main_416map")){initGunMap();}
 }
 
 function initAnchors(_dataSet, _targetElement, _classList = null){
@@ -224,7 +225,7 @@ function initGunList(){
                         })()
                     );
                 }
-                
+
             });
         });
         
@@ -252,3 +253,62 @@ function loadJSON(_src, _callbackFunc){
     xhp.send(null);
 }
 
+function initGunMap(){
+
+    //MATH
+
+    let mapDiv = document.querySelector(".mapHolder");
+    let mapimg = mapDiv.querySelector("img");
+    let maptag = mapDiv.querySelector("map");
+    const datasrc = "./js/gunmapdesc.json";
+
+    const imgdm = {
+        "height": mapimg.naturalHeight,
+        "width": mapimg.naturalWidth
+    };
+
+    loadJSON(datasrc, function(response){
+        const jsondata = JSON.parse(response);
+
+        for(const x of maptag.children){
+            let partdata = findRowByField(jsondata, "partname", x.getAttribute("title"));
+            let mapCoords = [];
+            x.getAttribute("coords").split(",").forEach(function(_x, _i){
+                mapCoords.push(parseInt(_x))
+            });
+
+            console.log("Base Image Resolution: " + imgdm.width + "x" + imgdm.height);
+            console.log("Coordinates of area element:");
+            console.log(mapCoords);
+            let coordRatios = [];
+            mapCoords.forEach(function(_x, _i){
+                if(_i === 0 || _i === 2)
+                    coordRatios[_i] = mapCoords[_i] / imgdm.width;
+                else if (_i === 1 || _i === 3)
+                    coordRatios[_i] = mapCoords[_i] / imgdm.height;
+            });
+            console.log("Ratio of coordinate to img reso");
+            console.log(coordRatios);
+
+            console.log("Current Image Resolution: " + mapimg.clientWidth + "x" + mapimg.clientHeight);
+
+            let adjustedCoords = [];
+            coordRatios.forEach(function(_x, _i){
+                if(_i === 0 || _i === 2)
+                    adjustedCoords[_i] = _x * mapimg.width;
+                else if (_i === 1 || _i === 3)
+                    adjustedCoords[_i] = _x * mapimg.height;
+            });
+
+            console.log("Adjusted Values");
+            console.log(adjustedCoords);
+
+
+            
+            mapimg.addEventListener("click", function(_ev){
+                console.log("current map img width: " + mapimg.clientWidth);
+                console.log("current map img height: " + mapimg.clientHeight);
+            });
+        }
+    });
+}
