@@ -270,6 +270,47 @@ function initGunMap(){
     loadJSON(datasrc, function(response){
         const jsondata = JSON.parse(response);
 
+        for(const x of maptag.children){
+
+            let mapCoords = [];
+            x.getAttribute("coords").split(",").forEach(function(_x, _i){
+                mapCoords.push(parseInt(_x))
+            });
+            
+            x.setAttribute("coords", 
+                imgMap_getAdjustedCoords(
+                    imgdm,
+                    mapCoords,
+                    mapimg
+                ).join()
+            );
+
+            x.classList.add("modal-trigger");
+            x.href = "#gunPartModal";
+            
+            x.addEventListener("click", (_ev) => {
+                
+                const targ = findRowByField(jsondata, "partname", x.getAttribute("title"));
+                let modal_img = document.getElementById("gmpModal_img");
+                let modal_title = document.getElementById("gmpModal_title");
+                let modal_content = document.getElementById("gmpModal_content");
+
+                modal_img.setAttribute("src", targ.imgLink);
+                modal_img.setAttribute("alt", targ.partname);
+
+                modal_title.innerHTML = targ.partname;
+                modal_title.classList.add("modal-span");
+
+                modal_content.replaceChildren((() => {
+                    let p = document.createElement("p");
+                    p.textContent = targ.desc;
+
+                    return p;
+                })());
+            });
+
+        }
+
         window.addEventListener("resize", function(){
             for(const x of maptag.children){
                 
@@ -289,29 +330,6 @@ function initGunMap(){
             }
             
         });
-
-        for(const x of maptag.children){
-
-            let mapCoords = [];
-            x.getAttribute("coords").split(",").forEach(function(_x, _i){
-                mapCoords.push(parseInt(_x))
-            });
-            
-            x.setAttribute("coords", 
-                imgMap_getAdjustedCoords(
-                    imgdm,
-                    mapCoords,
-                    mapimg
-                ).join()
-            );
-            
-            x.addEventListener("click", (_ev) => {
-                console.log("Click detected on " + x.getAttribute("title"));
-                console.log(findRowByField(jsondata, "partname", x.getAttribute("title")));
-                //window.alert(x);
-            });
-
-        }
 
     });
 }

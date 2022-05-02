@@ -38,4 +38,10 @@
   display: inline-block;
   font-size: 16px;
 }
+
+.modal-span {
+  background-color: rgba(221, 123, 123, 0.774);
+  color: white;
+  font-weight: bold;
+}
 /*# sourceMappingURL=index.css.map */
